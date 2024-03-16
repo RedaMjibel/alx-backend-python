@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" 
+"""
 Let's duck type an iterable object
 """
 
