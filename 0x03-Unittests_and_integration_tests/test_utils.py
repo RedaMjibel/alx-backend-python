@@ -6,7 +6,6 @@ from utils import (access_nested_map, get_json, memoize)
 from unittest.mock import patch
 
 
-
 class TestAccessNestedMap(unittest.TestCase):
     """ TestAccessNestedMap class inherits from unittest.TestCase """
     @parameterized.expand([
@@ -16,7 +15,7 @@ class TestAccessNestedMap(unittest.TestCase):
     ])
     def test_access_nested_map(self, nested_map, path, expected):
         self.assertEqual(access_nested_map(nested_map, path), expected)
-		
+
     @parameterized.expand([
         ({}, ("a",)),
         ({"a": 1}, ("a", "b"))
@@ -24,7 +23,8 @@ class TestAccessNestedMap(unittest.TestCase):
     def test_access_nested_map_exception(self, nested_map, path):
         with self.assertRaises(KeyError):
             access_nested_map(nested_map, path)
-			
+
+
 class TestGetJson(unittest.TestCase):
     """ Class for Testing Get Json """
 
@@ -41,6 +41,7 @@ class TestGetJson(unittest.TestCase):
         self.assertEqual(get_json(test_url), test_payload)
         mock.assert_called_once()
         patcher.stop()
+
 
 class TestMemoize(unittest.TestCase):
     """ test class to tes utils.memoize"""
@@ -62,6 +63,7 @@ class TestMemoize(unittest.TestCase):
             test_class.a_property()
             test_class.a_property()
             mock.assert_called_once()
+
 
 if __name__ == "__main__":
     unittest.main()
