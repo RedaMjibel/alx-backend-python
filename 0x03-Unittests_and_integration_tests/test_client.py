@@ -82,25 +82,28 @@ class TestGithubOrgClient(unittest.TestCase):
         result = GithubOrgClient.has_license(repo, license_key)
         self.assertEqual(result, expected_result)
 
-@parameterized_class([
-    {"org_payload": org_payload, "repos_payload": repos_payload, "expected_repos": expected_repos},
-    {"org_payload": org_payload, "repos_payload": repos_payload, "expected_repos": apache2_repos}
-])
+
+@parameterized_class(
+    ('org_payload', 'repos_payload', 'expected_repos', 'apache2_repos'),
+    [(TEST_PAYLOAD[0][0], TEST_PAYLOAD[0][1], TEST_PAYLOAD[0][2],
+      TEST_PAYLOAD[0][3])]
+)
 class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """
+    TestIntegrationGithubOrgClient(unittest.TestCase) class
+    """
+    @classmethod
+    def tearDownClass(cls):
+        """
+        TeardownClass which are part of the unittest.TestCase API
+        """
+        cls.get_patcher.stop()
+
     @classmethod
     def setUpClass(cls):
         """
         setUpClass which are part of the unittest.TestCase API
         """
-        cls.get_patcher = patch('client.get_json')
-
-        cls.mock_get_json = cls.get_patcher.start()
-        cls.mock_get_json.side_effect = [
-            cls.org_payload,
-            cls.repos_payload
-        ]
-
-    @classmethod
-    def tearDownClass(cls):
-        """ tearDownClass which are part of the unittest.TestCase API """
-        cls.get_patcher.stop()
+        cls.get_patcher = patch('utils.requests.get', side_effect=requests_get)
+        cls.get_patcher.start()
+        cls.client = GithubOrgClient('google')
