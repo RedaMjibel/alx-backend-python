@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" 4. Parameterize and patch as decorators """
+"""Module to test the GithubOrgClient class."""
 
 import unittest
 from unittest.mock import patch
@@ -31,5 +31,4 @@ class TestGithubOrgClient(unittest.TestCase):
 
 
 if __name__ == '__main__':
-
     unittest.main()
