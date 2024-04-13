@@ -4,7 +4,9 @@ Module to test the GithubOrgClient class.
 """
 
 import unittest
-from unittest.mock import patch
+from urllib import response
+from unittest import mock
+from unittest.mock import patch, Mock, PropertyMock
 from parameterized import parameterized, parameterized_class
 from fixtures import org_payload, repos_payload, expected_repos, apache2_repos
 from client import GithubOrgClient
