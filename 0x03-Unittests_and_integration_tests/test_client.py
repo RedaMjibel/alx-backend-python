@@ -10,25 +10,21 @@ from client import GithubOrgClient
 
 
 class TestGithubOrgClient(unittest.TestCase):
-    """Test cases for GithubOrgClient"""
-
+    """
+    Test the GithubOrgClient class methods
+    """
     @parameterized.expand([
-        ('google'),
-        ('abc')
+        ("google"),
+        ("abc")
     ])
     @patch('client.get_json', return_value={"payload": True})
-    def test_org(self, org_name, mock_get_json):
+    def test_org(self, org, mock_org):
         """
-        Test GithubOrgClient.org method
+        Test TestGithubOrgClient's org method
         Args:
             org (str): organisation's name
         """
-        test_data = {'name': 'test_org'}
-        mock_get_json.return_value = test_data
-
-        client = GithubOrgClient(org_name)
-        org_info = client.org()
-
-        self.assertEqual(org_info, test_data)
-
-        mock_get_json.assert_called_once()
+        org_test = GithubOrgClient(org)
+        test_response = org_test.org
+        self.assertEqual(test_response, mock_org.return_value)
+        mock_org.assert_called_once()
