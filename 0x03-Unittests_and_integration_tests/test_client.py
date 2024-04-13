@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Module to test the GithubOrgClient class."""
+"""
+Module to test the GithubOrgClient class.
+"""
 
 import unittest
 from unittest.mock import patch
@@ -16,7 +18,11 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     @patch('client.get_json')
     def test_org(self, org_name, mock_get_json):
-        """Test GithubOrgClient.org method"""
+        """
+        Test GithubOrgClient.org method
+        Args:
+            org (str): organisation's name
+        """
         test_data = {'name': 'test_org'}
         mock_get_json.return_value = test_data
 
